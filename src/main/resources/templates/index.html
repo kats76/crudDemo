@@ -1,0 +1,87 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Ajax PHP CRUD System">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ajax PHP CRUD</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body style="font-family:roboto,sans-serif;">
+    <div class="container-fluid py-4" style="background:linear-gradient(to right, rgb(111, 207, 242), rgb(4, 147, 135));">
+        <h1 class='text-center'>Thymeleaf CRUD System</h1>
+        <p class='text-center'>Thymeleaf CRUD system with live predictive Search Bar</p>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 bg-light py-3" id='regBox'>
+                <h2 class='text-center'>Register</h2><br>
+                <div id='msgReg'></div>
+                <form th:action="@{/save}" th:object="${person}" method="post" id='regForm'>
+					<input type="hidden" th:field="*{id}">
+                    <div class="form-group">
+                        <input type="text" th:field="*{firstName}" placeholder="First Name" class='form-control' required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" th:field="*{lastName}" placeholder="Last Name" class='form-control' required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" th:field="*{occupation}" placeholder="Occupation" class='form-control' required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" th:field="*{city}" placeholder="City" class='form-control' required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" th:field="*{email}" placeholder="Email" class='form-control' required>
+                    </div>
+                    <input type="submit" id="btnPost" value="Submit" class='btn btn-info'>
+                </form>
+                <br>
+            </div>
+            <div class="col-sm-7 offset-sm-1">
+                <div>
+                    <h4 class='text-center'>Database Records</h4><br>
+                    <input type="text" id="q" name='q' placeholder="search..." class='form-control col-sm-5 mx-auto' autocomplete='off'>
+                    <br>
+                    <div id="msg" class='mx-auto'></div>
+                    <div id="table" class='text-center mx-auto'>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+									<th>Id</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Occupation</th>
+                                    <th>City</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="person : ${persons}">
+									<td th:text="${person.id}">First Name</td>
+                                    <td th:text="${person.firstName}">First Name</td>
+                                    <td th:text="${person.lastName}">Last Name</td>
+                                    <td th:text="${person.occupation}">Occupation</td>
+                                    <td th:text="${person.city}">City</td>
+                                    <td th:text="${person.email}">Email</td>
+                                    <td>
+                                        <a th:href="@{/edit/{id}(id=${person.id})}" class="btn btn-primary btn-sm">Edit</a>
+                                        <a th:href="@{/delete/{id}(id=${person.id})}" class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
